@@ -17,6 +17,9 @@ public class Usuario {
     private String email;
 
     @Column()
+    private String tipo;
+
+    @Column()
     @NotNull()
     private String phone;
 
