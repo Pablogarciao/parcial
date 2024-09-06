@@ -19,9 +19,9 @@ public class Usuario {
     @Column()
     private String tipo;
 
-    @Column()
-    @NotNull()
-    private String phone;
+//    @Column()
+//    @NotNull()
+//    private String phone;
 
 //    @ManyToOne
 //    @JoinColumn(name="usuario_id",
