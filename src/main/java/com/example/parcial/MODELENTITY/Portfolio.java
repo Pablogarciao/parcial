@@ -1,11 +1,17 @@
 package com.example.parcial.MODELENTITY;
 
-import javax.persistence.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import jakarta.persistence.*;
+
+import jakarta.persistence.*;
+import lombok.Data;
+
 import java.util.List;
 
-@data
+@Data
 @Entity
-@table(name="portafolio")
+@Table(name="portafolio")
 public class Portfolio {
 
     @Id
@@ -22,6 +28,9 @@ public class Portfolio {
     @OneToMany(mappedBy = "portfolio", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<PortfolioMedia> media;
 
-    @Column(name = biography)
+    @Column(name = "biography")
     private String biography;
+
 }
+
+
