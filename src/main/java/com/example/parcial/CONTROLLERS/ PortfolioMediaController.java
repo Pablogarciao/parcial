@@ -59,7 +59,7 @@ public class PortfolioMediaController {
         }
 
         portfolioMedia.setMedia(updatedPortfolioMedia.getMedia());
-        portfolioMedia.setIDPortfolio(updatedPortfolioMedia.getIDPortfolio());
+        portfolioMedia.setPortfolio(updatedPortfolioMedia.getPortfolio());
 
         portfolioMediaService.save(portfolioMedia);
         return ResponseEntity.status(200).body(portfolioMedia);

@@ -59,7 +59,7 @@ public class PortfolioController {
         }
 
         portfolio.setBiography(updatedPortfolio.getBiography());
-        portfolio.setIDUser(updatedPortfolio.getIDUser());
+        portfolio.setUser(updatedPortfolio.getUser());
 
         portfolioService.save(portfolio);
         return ResponseEntity.status(200).body(portfolio);

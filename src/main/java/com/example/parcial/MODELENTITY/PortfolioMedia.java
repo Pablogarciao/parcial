@@ -1,7 +1,14 @@
 package com.example.parcial.MODELENTITY;
 
-import javax.persistence.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import jakarta.persistence.Entity;
 
+import jakarta.persistence.*;
+import lombok.Data;
+
+import java.util.List;
+@Data
 @Entity
 public class PortfolioMedia {
 
@@ -10,7 +17,6 @@ public class PortfolioMedia {
     private Long id;
 
     private String media;
-    private String URL;
 
     // FK hacia Portfolio
     @ManyToOne
