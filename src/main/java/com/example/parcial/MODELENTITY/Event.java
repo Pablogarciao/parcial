@@ -26,10 +26,9 @@ public class Event {
     @OneToMany(mappedBy = "event", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<EventMedia> media;
 
-    @ManyToOne
-    @JoinColumn(name="user_id", nullable = false)
-    // Pasar a User
-    private Usuario lastUpdate;
+//    @ManyToOne
+//    @JoinColumn(name="user_id", nullable = false)
+//    private User lastUpdate;
 
 //    @ManyToMany(mappedBy = "participations")
 //    private Set<Portfolio> portfolios = new HashSet<>();
