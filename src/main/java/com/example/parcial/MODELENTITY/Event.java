@@ -3,7 +3,7 @@ package com.example.parcial.MODELENTITY;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
-
+import java.util.List;
 import java.util.Date;
 import java.util.Set;
 
@@ -26,14 +26,14 @@ public class Event {
     @OneToMany(mappedBy = "event", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<EventMedia> media;
 
-//    //YO LO AGREGUÉ
-//    @OneToMany(mappedBy = "event", cascade = CascadeType.ALL, orphanRemoval = true)
-//    private Set<Ticket> tickets;
+    @ManyToMany(mappedBy = "participations")private List<Portfolio> portfolios;
 
-//    @ManyToOne
-//    @JoinColumn(name="user_id", nullable = false)
-//    private User lastUpdate;
+    //YO LO AGREGUÉ
+    @OneToMany(mappedBy = "event", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Ticket> tickets;
 
-//    @ManyToMany(mappedBy = "participations")
-//    private Set<Portfolio> portfolios = new HashSet<>();
+    @ManyToOne
+    @JoinColumn(name="user_id", nullable = false)
+    private User lastUpdate;
+
 }
