@@ -15,7 +15,7 @@ import java.util.List;
 @Table(name="portafolio")
 public class Portfolio {
     @EmbeddedId
-    private CompositeKey id;
+    private CompositeKey id_portfolio;
 
     @ManyToOne
     @JoinColumn(name = "id_user", insertable = false, updatable = false)
@@ -28,9 +28,16 @@ public class Portfolio {
     @Column()
     private String biography;
 
-    @ManyToMany ()@JoinTable(        name="participations",        joinColumns = @JoinColumn(name="id_portfolio"),
-            inverseJoinColumns = @JoinColumn(name="id_event"))private List<Event> participations;
-
+    @ManyToMany
+    @JoinTable(
+            name = "participations",
+            joinColumns = {
+                    @JoinColumn(name = "id_portfolio"), // First column in the composite key
+                    @JoinColumn(name = "id_user")  // Second column in the composite key
+            },
+            inverseJoinColumns = @JoinColumn(name = "id_event")
+    )
+    private List<Event> participations;
 }
 
 

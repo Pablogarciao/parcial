@@ -10,20 +10,21 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 import java.util.List;
+
 @Data
 @Entity
 public class PortfolioMedia {
     @EmbeddedId
-    private CompositeKey id;
+    private CompositeKey id_portfolioMedia;
 
     @ManyToOne
-    @JoinColumn(name = "id_portfolio", insertable = false, updatable = false)
+    @JoinColumns({
+            @JoinColumn(name = "id_portfolio", referencedColumnName = "idPart1", insertable = false, updatable = false),
+            @JoinColumn(name = "id_user", referencedColumnName = "idPart2", insertable = false, updatable = false)
+    })
     private Portfolio portfolio;
 
     @Column()
     @NotNull()
     private String media;
-
-
-
 }
