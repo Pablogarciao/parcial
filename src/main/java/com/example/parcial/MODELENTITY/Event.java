@@ -26,6 +26,10 @@ public class Event {
     @OneToMany(mappedBy = "event", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<EventMedia> media;
 
+//    //YO LO AGREGUÉ
+//    @OneToMany(mappedBy = "event", cascade = CascadeType.ALL, orphanRemoval = true)
+//    private Set<Ticket> tickets;
+
 //    @ManyToOne
 //    @JoinColumn(name="user_id", nullable = false)
 //    private User lastUpdate;
