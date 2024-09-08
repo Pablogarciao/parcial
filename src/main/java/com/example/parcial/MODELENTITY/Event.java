@@ -13,7 +13,7 @@ import java.util.Set;
 public class Event {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long id_event;
 
     @Column()
     @NotNull()
@@ -26,11 +26,12 @@ public class Event {
     @OneToMany(mappedBy = "event", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<EventMedia> media;
 
-    @ManyToMany(mappedBy = "participations")private List<Portfolio> portfolios;
+    @ManyToMany(mappedBy = "participations")
+    private List<Portfolio> portfolios;
 
     //YO LO AGREGUÉ
-    @OneToMany(mappedBy = "event", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Ticket> tickets;
+//    @OneToMany(mappedBy = "event", cascade = CascadeType.ALL, orphanRemoval = true)
+//    private List<Ticket> tickets;
 
     @ManyToOne
     @JoinColumn(name="user_id", nullable = false)

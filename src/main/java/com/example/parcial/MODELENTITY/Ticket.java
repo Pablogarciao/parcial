@@ -12,10 +12,10 @@ import lombok.Data;
 @Data()
 public class Ticket {
     @EmbeddedId
-    private CompositeKey id;
+    private CompositeKey id_ticket;
 
     @ManyToOne
-    @JoinColumn(name = "IDUser", insertable = false, updatable = false)
+    @JoinColumn(name = "id_user", insertable = false, updatable = false)
     private User user;
 
     @ManyToOne

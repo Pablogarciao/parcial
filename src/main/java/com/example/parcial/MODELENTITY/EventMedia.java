@@ -10,7 +10,7 @@ import lombok.Data;
 @Data()
 public class EventMedia {
     @EmbeddedId
-    private CompositeKey id;
+    private CompositeKey id_eventMedia;
 
     @ManyToOne
     @JoinColumn(name = "id_evento", insertable = false, updatable = false)
