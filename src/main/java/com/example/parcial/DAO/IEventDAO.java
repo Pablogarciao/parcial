@@ -8,8 +8,8 @@ import java.util.Date;
 import java.util.List;
 
 public interface IEventDAO extends JpaRepository<Event, Long> {
-    @Query("SELECT e FROM Event e WHERE e.date = :date")
-    List<Event> findByDate(Date date);
+//    @Query("SELECT e FROM Event e WHERE e.date = :date")
+//    List<Event> findByDate(Date date);
 
 //    @Query("SELECT e FROM Event e WHERE e.id = :idUser")
 //    List<Event> findByUser(Long idUser);

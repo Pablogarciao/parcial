@@ -3,9 +3,8 @@ package com.example.parcial.MODELENTITY;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
-
+import java.util.List;
 import java.util.Date;
-import java.util.Set;
 
 @Entity
 @Table(name="event")
@@ -13,7 +12,7 @@ import java.util.Set;
 public class Event {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long id_event;
 
     @Column()
     @NotNull()
@@ -23,13 +22,16 @@ public class Event {
     @NotNull()
     private String details;
 
+    @ManyToOne
+    @JoinColumn(name="lastUpdate", nullable = false)
+    private User lastUpdate;
+
     @OneToMany(mappedBy = "event", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<EventMedia> media;
+    private List<EventMedia> media;
 
-//    @ManyToOne
-//    @JoinColumn(name="user_id", nullable = false)
-//    private User lastUpdate;
+    @OneToMany(mappedBy = "event", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Ticket> tickets;
 
-//    @ManyToMany(mappedBy = "participations")
-//    private Set<Portfolio> portfolios = new HashSet<>();
+    @ManyToMany(mappedBy = "participations")
+    private List<Portfolio> portfolios;
 }
