@@ -11,7 +11,7 @@ import lombok.Data;
 public class PortfolioMedia {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id_portfolioMedia;
+    private Long id_portfolio_media;
 
     @ManyToOne
     @JoinColumn(name = "id_portfolio", insertable = false, nullable = false)
