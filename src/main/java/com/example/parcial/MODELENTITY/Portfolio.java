@@ -24,6 +24,10 @@ public class Portfolio {
     @Column()
     private String biography;
 
-    @OneToMany(mappedBy = "portfolio", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Participation> participations;
+    @ManyToMany
+    @JoinTable(
+            name = "participations",
+            joinColumns = @JoinColumn(name = "id_portfolio"),
+            inverseJoinColumns = @JoinColumn(name = "id_event"))
+    private List<Event> participations;
 }
