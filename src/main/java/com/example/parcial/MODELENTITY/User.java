@@ -15,7 +15,7 @@ public class User {
 
     @Column()
     @NotNull()
-    private String roles;
+    private String rol;
 
     @Column()
     @NotNull()
