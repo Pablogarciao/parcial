@@ -23,18 +23,16 @@ public class Event {
     @NotNull()
     private String details;
 
-    @OneToMany(mappedBy = "event", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<EventMedia> media;
-
-    @ManyToMany(mappedBy = "participations")
-    private List<Portfolio> portfolios;
-
-    //YO LO AGREGUÉ
-//    @OneToMany(mappedBy = "event", cascade = CascadeType.ALL, orphanRemoval = true)
-//    private List<Ticket> tickets;
-
     @ManyToOne
-    @JoinColumn(name="user_id", nullable = false)
+    @JoinColumn(name="lastUpdate", nullable = false)
     private User lastUpdate;
 
+    @OneToMany(mappedBy = "event", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<EventMedia> media;
+
+    @OneToMany(mappedBy = "event", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Ticket> tickets;
+
+    @OneToMany(mappedBy = "event", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Participation> portfolios;
 }

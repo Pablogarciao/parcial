@@ -1,28 +1,21 @@
 package com.example.parcial.MODELENTITY;
 
-import com.example.parcial.UTILS.CompositeKey;
-import com.example.parcial.MODELENTITY.User;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
-import com.example.parcial.MODELENTITY.User;
 import lombok.Data;
 
 @Entity
 @Table(name="tickets")
 @Data()
 public class Ticket {
-    @EmbeddedId
-    private CompositeKey id_ticket;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id_ticket;
 
     @ManyToOne
     @JoinColumn(name = "id_user", insertable = false, updatable = false)
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "event", insertable = false, updatable = false)
+    @JoinColumn(name = "id_event", insertable = false, updatable = false)
     private Event event;
-
-
-
 }
-
