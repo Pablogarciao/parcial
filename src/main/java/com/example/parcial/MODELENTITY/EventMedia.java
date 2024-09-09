@@ -1,6 +1,5 @@
 package com.example.parcial.MODELENTITY;
 
-import com.example.parcial.UTILS.CompositeKey;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
@@ -9,18 +8,19 @@ import lombok.Data;
 @Table(name="event_media")
 @Data()
 public class EventMedia {
-    @EmbeddedId
-    private CompositeKey id_eventMedia;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id_event_media;
 
     @ManyToOne
-    @JoinColumn(name = "id_evento", insertable = false, updatable = false)
+    @JoinColumn(name = "id_event", insertable = false, nullable = false)
     private Event event;
 
     @Column()
     @NotNull()
     private String media;
 
-    @Column()
+    @Column
     @NotNull()
     private Boolean favorite;
 }
