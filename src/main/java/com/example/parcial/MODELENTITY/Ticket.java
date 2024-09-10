@@ -1,6 +1,7 @@
 package com.example.parcial.MODELENTITY;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 @Entity
@@ -13,9 +14,11 @@ public class Ticket {
 
     @ManyToOne
     @JoinColumn(name = "id_user", insertable = false, updatable = false)
+    @NotNull()
     private User user;
 
     @ManyToOne
     @JoinColumn(name = "id_event", insertable = false, updatable = false)
+    @NotNull()
     private Event event;
 }

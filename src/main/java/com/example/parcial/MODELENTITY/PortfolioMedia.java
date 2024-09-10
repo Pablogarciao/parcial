@@ -15,6 +15,7 @@ public class PortfolioMedia {
 
     @ManyToOne
     @JoinColumn(name = "id_portfolio", insertable = false, nullable = false)
+    @NotNull()
     private Portfolio portfolio;
 
     @Column()
