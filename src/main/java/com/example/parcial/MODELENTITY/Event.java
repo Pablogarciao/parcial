@@ -24,6 +24,7 @@ public class Event {
 
     @ManyToOne
     @JoinColumn(name="lastUpdate", nullable = false)
+    @NotNull()
     private User lastUpdate;
 
     @OneToMany(mappedBy = "event", cascade = CascadeType.ALL, orphanRemoval = true)

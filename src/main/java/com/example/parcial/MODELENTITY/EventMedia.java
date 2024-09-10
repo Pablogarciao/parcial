@@ -14,6 +14,7 @@ public class EventMedia {
 
     @ManyToOne
     @JoinColumn(name = "id_event", insertable = false, nullable = false)
+    @NotNull()
     private Event event;
 
     @Column()
