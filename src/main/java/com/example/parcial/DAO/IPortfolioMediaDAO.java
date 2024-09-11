@@ -7,5 +7,5 @@ import com.example.parcial.MODELENTITY.PortfolioMedia;
 import java.util.List;
 
 public interface IPortfolioMediaDAO extends JpaRepository<PortfolioMedia, Long> {
-   List<PortfolioMedia> findByName(String media);
+//   List<PortfolioMedia> findByName(String media);
 }

@@ -7,5 +7,5 @@ import com.example.parcial.MODELENTITY.Portfolio;
 import java.util.List;
 
 public interface IPortfolioDAO extends JpaRepository<Portfolio, Long> {
-    public List<Portfolio> findByName(String biography);
+//    public List<Portfolio> findByName(String biography);
 }
