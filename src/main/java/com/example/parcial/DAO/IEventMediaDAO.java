@@ -8,8 +8,8 @@ import java.util.List;
 
 public interface IEventMediaDAO extends JpaRepository<EventMedia, Long> {
     @Query("SELECT em FROM EventMedia em WHERE em.event.id_event = :idEvent")
-    List<EventMedia> findByEvent(Long idEvent);
+    public List<EventMedia> findByEvent(Long idEvent);
 
     @Query("SELECT em FROM EventMedia em WHERE em.favorite = :favorite")
-    List<EventMedia> findByFavorite(Boolean favorite);
+    public List<EventMedia> findByFavorite(Boolean favorite);
 }
