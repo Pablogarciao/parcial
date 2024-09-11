@@ -10,23 +10,19 @@ import org.springframework.stereotype.Repository;
 import com.example.parcial.MODELENTITY.Ticket;
 import java.util.List;
 
-//preguntarle a sebas si esto si va?
 public interface ITicketDAO extends JpaRepository<Ticket, Long>  {
     @Query("SELECT t FROM Ticket t WHERE t.id_ticket = :id")
     List<Ticket> findById_ticket(Id id);
 
-    @Query("SELECT t FROM Ticket t WHERE t.event = :event")
-    List<Ticket> findByEvent(Event event);
-
     @Query("SELECT t FROM Ticket t WHERE t.user = :user")
     List<Ticket> findByUser(User user);
 
-//    @Query("SELECT t FROM Ticket t WHERE t.user.id_user = :userId")
-//    List<Ticket> findByUserId(@Param("userId") Long userId);
-//
-//    @Query("SELECT t FROM Ticket t WHERE t.user.name = :userName")
-//    List<Ticket> findByUserName(@Param("userName") String userName);
+    @Query("SELECT t FROM Ticket t WHERE t.user.id_user = :userId")
+    List<Ticket> findByUserId(@Param("userId") Long userId);
 
-//    @Query("SELECT t FROM Ticket t WHERE t.event = :event")
-//    List<Ticket> findByEvent(@Param("event") Event event);
+    @Query("SELECT t FROM Ticket t WHERE t.user.name = :userName")
+    List<Ticket> findByUserName(@Param("userName") String userName);
+
+    @Query("SELECT t FROM Ticket t WHERE t.event = :event")
+    List<Ticket> findByEvent(@Param("event") Event event);
 }
