@@ -1,5 +1,6 @@
 package com.example.parcial.CONTROLLERS;
 
+import com.example.parcial.DTO.EventDTO;
 import com.example.parcial.MODELENTITY.Event;
 import com.example.parcial.SERVICES.INTERFACES.IEventService;
 import jakarta.validation.Valid;
@@ -27,16 +28,15 @@ public class EventController {
         }
     }
 
-    @PostMapping("/event")
-    public ResponseEntity<?> postEvent (@Valid @RequestBody Event event) {
-        System.out.println("postEvent");
+    @GetMapping("/event/{id}")
+    public ResponseEntity<?> getEventById (@PathVariable Long id) {
+        System.out.println("getEventById");
 
-        try{
-            eventService.save(event);
-            return ResponseEntity.status(201).body(event);
-        } catch (Exception e){
-            return ResponseEntity.status(500).body(e.getMessage());
-        }
+        Event e = eventService.findById(id);
+
+        if( e==null ) return ResponseEntity.status(404).body("event not found");
+
+        return ResponseEntity.status(200).body(e);
     }
 
     @DeleteMapping("/event/{id}")
@@ -51,15 +51,23 @@ public class EventController {
         }
     }
 
-    @GetMapping("/event/{id}")
-    public ResponseEntity<?> getEventById (@PathVariable Long id) {
-        System.out.println("getEventById");
+    @PostMapping("/event")
+    public ResponseEntity<?> postEvent (@Valid @RequestBody EventDTO eventDTO) {
+        System.out.println("postEvent");
 
-        Event e = eventService.findById(id);
+        try{
+            // TODO: rol validation
 
-        if( e==null ) return ResponseEntity.status(404).body("event not found");
+            // Create Event
+            Event event = eventService.createEvent(eventDTO);
 
-        return ResponseEntity.status(200).body(e);
+            // Create Media
+            eventService.addMedia(eventDTO.getMedia(), event);
+
+            return ResponseEntity.status(201).body(event);
+        } catch (Exception e){
+            return ResponseEntity.status(500).body(e.getMessage());
+        }
     }
 
     @PutMapping("/event/{id}")

@@ -1,5 +1,7 @@
 package com.example.parcial.CONTROLLERS;
 
+import com.example.parcial.DAO.IEventMediaDAO;
+import com.example.parcial.DTO.EventMediaDTO;
 import com.example.parcial.MODELENTITY.EventMedia;
 import com.example.parcial.SERVICES.INTERFACES.IEventMediaService;
 import jakarta.validation.Valid;
@@ -15,6 +17,9 @@ public class EventMediaController {
     @Autowired
     private IEventMediaService eventMediaService;
 
+    @Autowired
+    private IEventMediaDAO eventMediaDAO;
+
     @GetMapping("/event-media")
     public ResponseEntity<?> getEventMedia() {
         System.out.println("getEventMedia");
@@ -27,13 +32,41 @@ public class EventMediaController {
         }
     }
 
-    @PostMapping("/event-media")
-    public ResponseEntity<?> postEventMedia (@Valid @RequestBody EventMedia eventMedia) {
-        System.out.println("postEventMedia");
+    @GetMapping("/event-media/{id}")
+    public ResponseEntity<?> getEventMediaById (@PathVariable Long id) {
+        System.out.println("getEventMediaById");
 
         try{
-            eventMediaService.save(eventMedia);
-            return ResponseEntity.status(201).body(eventMedia);
+            EventMedia e = eventMediaService.findById(id);
+
+            if( e==null ) return ResponseEntity.status(404).body("EventMedia not found");
+
+            return ResponseEntity.status(200).body(e);
+        } catch (Exception e){
+            return ResponseEntity.status(500).body(e.getMessage());
+        }
+    }
+
+    @GetMapping("/event-media/event/{id}")
+    public ResponseEntity<?> getEventMediaByEventId (@PathVariable Long id) {
+        System.out.println("getEventMediaByEventId");
+
+        try{
+            List<EventMedia> em = eventMediaDAO.findByEvent(id);
+            return ResponseEntity.status(200).body(em);
+        } catch (Exception e){
+            return ResponseEntity.status(500).body(e.getMessage());
+        }
+    }
+
+    @GetMapping("/event-media/favorite/{favorite}")
+    // Gallery
+    public ResponseEntity<?> getEventMediaByFavorite (@PathVariable Boolean favorite) {
+        System.out.println("getEventMediaByEventId");
+
+        try{
+            List<EventMedia> em = eventMediaDAO.findByFavorite(favorite);
+            return ResponseEntity.status(200).body(em);
         } catch (Exception e){
             return ResponseEntity.status(500).body(e.getMessage());
         }
@@ -51,16 +84,17 @@ public class EventMediaController {
         }
     }
 
-    @GetMapping("/event-media/{id}")
-    public ResponseEntity<?> getEventMediaById (@PathVariable Long id) {
-        System.out.println("getEventMediaById");
+    @PostMapping("/event-media")
+    public ResponseEntity<?> postEventMedia (@Valid @RequestBody EventMediaDTO eventMediaDTO) {
+        System.out.println("postEventMedia");
 
-        try{
-            EventMedia e = eventMediaService.findById(id);
+        try {
+            // TODO: rol validation
 
-            if( e==null ) return ResponseEntity.status(404).body("EventMedia not found");
+            // Save EventMedia
+            EventMedia eventMedia = eventMediaService.createEventMedia(eventMediaDTO);
 
-            return ResponseEntity.status(200).body(e);
+            return ResponseEntity.status(201).body(eventMedia);
         } catch (Exception e){
             return ResponseEntity.status(500).body(e.getMessage());
         }
