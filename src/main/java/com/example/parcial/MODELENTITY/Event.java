@@ -1,5 +1,7 @@
 package com.example.parcial.MODELENTITY;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
@@ -28,11 +30,24 @@ public class Event {
     private User lastUpdate;
 
     @OneToMany(mappedBy = "event", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private List<EventMedia> media;
 
+    @ManyToMany(mappedBy = "participations")
+    @JsonBackReference
+    private List<Portfolio> portfolios;
+
     @OneToMany(mappedBy = "event", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonBackReference
     private List<Ticket> tickets;
 
-    @ManyToMany(mappedBy = "participations")
-    private List<Portfolio> portfolios;
+    // Constructor with parameters
+    public Event (Date date, String details, User lastUpdate) {
+        this.date = date;
+        this.details = details;
+        this.lastUpdate = lastUpdate;
+    }
+
+    // Constructor without parameters
+    public Event () {}
 }
