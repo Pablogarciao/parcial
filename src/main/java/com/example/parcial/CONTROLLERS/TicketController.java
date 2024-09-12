@@ -1,6 +1,13 @@
 package com.example.parcial.CONTROLLERS;
 
+import com.example.parcial.DTO.TicketDTO;
+import com.example.parcial.MODELENTITY.Event;
 import com.example.parcial.MODELENTITY.Ticket;
+import com.example.parcial.MODELENTITY.User;
+import com.example.parcial.SERVICES.INTERFACES.IEventService;
+import com.example.parcial.SERVICES.INTERFACES.IUserService;
+import com.example.parcial.SERVICES.UserService;
+import com.example.parcial.SERVICES.EventService;
 import com.example.parcial.SERVICES.INTERFACES.ITicketService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +23,10 @@ import java.util.Map;
 public class TicketController {
     @Autowired
     private ITicketService ticketService;
+    @Autowired
+    private IEventService eventService;
+    @Autowired
+    private IUserService userService;
 
     @GetMapping("/ticket")
     public List<Ticket> getTicket() {
@@ -24,19 +35,21 @@ public class TicketController {
     }
 
     @PostMapping("/ticket")
-    public ResponseEntity<?> postTicket (@Valid @RequestBody Ticket ticket) {
+    public ResponseEntity<?> postTicket (@Valid @RequestBody TicketDTO ticketDTO) {
         System.out.println("postTicket");
 
         Map<String,String> response= new HashMap<>();
 
         try{
+
+            Ticket ticket = ticketService.createTicket(ticketDTO);
             ticketService.save(ticket);
+            return ResponseEntity.status(201).body(ticket);
         } catch (Exception e){
             response.put("message",e.getMessage());
             return ResponseEntity.status(500).body(response);
         }
 
-        return ResponseEntity.status(201).body(ticket);
     }
 
     @DeleteMapping("/ticket/{id}")
@@ -61,20 +74,23 @@ public class TicketController {
     }
 
     @PutMapping("/ticket/{id}")
-    public ResponseEntity<?> putTicket (@RequestBody Ticket ticket, @PathVariable Long id) {
+    public ResponseEntity<?> putTicket (@RequestBody TicketDTO ticketDTO, @PathVariable Long id) {
         System.out.println("putTicket");
 
         Map<String,String> response= new HashMap<>();
 
         try{
             Ticket e = ticketService.findById(id);
+            Event event = eventService.findById(ticketDTO.getEvent_id());
+            User u = userService.findById(ticketDTO.getUser_id());
 
             if( e==null ) {
                 response.put("message","Ticket not found");
                 return ResponseEntity.status(404).body(response);
             }
-
-            Ticket TicketSaved = ticketService.save(ticket);
+            e.setEvent(event);
+            e.setUser(u);
+            Ticket TicketSaved = ticketService.save(e);
             return ResponseEntity.status(201).body(TicketSaved);
         } catch (Exception error){
             response.put("message",error.getMessage());

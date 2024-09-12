@@ -25,7 +25,7 @@ public class Event {
     private String details;
 
     @ManyToOne
-    @JoinColumn(name="lastUpdate", nullable = false)
+    @JoinColumn(name="lastUpdate", nullable = false)//antes estaba como "lastUpdate"
     @NotNull()
     private User lastUpdate;
 
