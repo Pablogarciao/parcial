@@ -6,7 +6,7 @@ import lombok.Setter;
 
 @Getter()
 @Setter()
-public class EventMediaEvDTO {
+public class MediaDTO {
     @NotNull
     private String media;
 

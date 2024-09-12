@@ -5,16 +5,13 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.Date;
-import java.util.List;
 
 @Getter()
 @Setter()
-public class EventDTO {
+public class EventEditDTO {
     @NotNull
     private Date date;
 
     @NotNull
     private String details;
-
-    private List<MediaDTO> media;
 }

@@ -3,7 +3,8 @@ package com.example.parcial.SERVICES;
 import com.example.parcial.DAO.IEventDAO;
 import com.example.parcial.DAO.IEventMediaDAO;
 import com.example.parcial.DTO.EventDTO;
-import com.example.parcial.DTO.EventMediaEvDTO;
+import com.example.parcial.DTO.EventEditDTO;
+import com.example.parcial.DTO.MediaDTO;
 import com.example.parcial.MODELENTITY.Event;
 import com.example.parcial.MODELENTITY.EventMedia;
 import com.example.parcial.MODELENTITY.User;
@@ -41,9 +42,9 @@ public class EventService implements IEventService {
     public void deleteById(Long id) { eventDAO.deleteById(id); }
 
     @Transactional
-    public Event createEvent (EventDTO eventDTO) throws IllegalArgumentException {
+    public Event createEvent (EventDTO eventDTO) {
         // Test User
-        User user = userService.findById(1L);
+        User user = getUser();
 
         // Save Event
         Event event = new Event(eventDTO.getDate(), eventDTO.getDetails(), user);
@@ -53,11 +54,42 @@ public class EventService implements IEventService {
     }
 
     @Transactional
-    public void addMedia (List<EventMediaEvDTO> mediaList, Event event) throws IllegalArgumentException {
+    public void addMedia (Event event, List<MediaDTO> mediaList) {
         if (mediaList != null) {
-            for (EventMediaEvDTO media : mediaList) {
+            for (MediaDTO media : mediaList) {
                 eventMediaDAO.save(new EventMedia(event, media.getMedia(), media.getFavorite()));
             }
         }
+    }
+
+    @Transactional
+    public Event editEvent (EventEditDTO eventEditDTO, Long id) {
+        // Event Validation
+        Event event = this.getEvent(id);
+
+        // Edit Event
+        event.setDate(eventEditDTO.getDate());
+        event.setDetails(eventEditDTO.getDetails());
+
+        // Save Event
+        this.save(event);
+
+        return event;
+    }
+
+    @Transactional
+    public Event getEvent(Long id_event) {
+        Event event = this.findById(id_event);
+
+        if (event == null) {
+            throw new IllegalArgumentException("Event not found");
+        }
+
+        return event;
+    }
+
+    private User getUser() {
+        // Test User
+        return userService.findById(1L);
     }
 }

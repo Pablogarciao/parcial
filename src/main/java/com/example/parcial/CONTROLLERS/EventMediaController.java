@@ -95,23 +95,26 @@ public class EventMediaController {
             EventMedia eventMedia = eventMediaService.createEventMedia(eventMediaDTO);
 
             return ResponseEntity.status(201).body(eventMedia);
+        } catch (IllegalArgumentException error){
+            return ResponseEntity.status(400).body(error.getMessage());
         } catch (Exception e){
             return ResponseEntity.status(500).body(e.getMessage());
         }
     }
 
     @PutMapping("/event-media/{id}")
-    public ResponseEntity<?> putEventMedia (@RequestBody EventMedia eventMedia, @PathVariable Long id) {
+    public ResponseEntity<?> putEventMedia (@RequestBody EventMediaDTO eventMediaDTO, @PathVariable Long id) {
         System.out.println("putEventMedia");
 
-        try{
-            EventMedia e = eventMediaService.findById(id);
+        try {
+            // TODO: rol validation
 
-            if( e==null ) return ResponseEntity.status(404).body("EventMedia not found");
+            // Edit EventMedia
+            EventMedia eventMedia = eventMediaService.editEventMedia(eventMediaDTO, id);
 
-            // Modificar e
-            eventMediaService.save(e);
-            return ResponseEntity.status(201).body(e);
+            return ResponseEntity.status(201).body(eventMedia);
+        } catch (IllegalArgumentException error){
+            return ResponseEntity.status(400).body(error.getMessage());
         } catch (Exception error){
             return ResponseEntity.status(500).body(error.getMessage());
         }

@@ -1,6 +1,7 @@
 package com.example.parcial.MODELENTITY;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
@@ -36,4 +37,10 @@ public class EventMedia {
 
     // Constructor without parameters
     public EventMedia() {}
+
+    // Return id_event in JSON
+    @JsonProperty("id_event")
+    public Long getEventId() {
+        return event != null ? event.getId_event() : null;
+    }
 }

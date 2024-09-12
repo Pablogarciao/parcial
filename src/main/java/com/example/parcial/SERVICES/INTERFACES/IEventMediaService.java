@@ -11,5 +11,6 @@ public interface IEventMediaService {
     public EventMedia findById(Long id);
     public void deleteById(Long id);
 
-    public EventMedia createEventMedia (EventMediaDTO eventMediaDTO) throws IllegalArgumentException;
+    public EventMedia createEventMedia (EventMediaDTO eventMediaDTO);
+    public EventMedia editEventMedia(EventMediaDTO eventMediaDTO, Long id);
 }

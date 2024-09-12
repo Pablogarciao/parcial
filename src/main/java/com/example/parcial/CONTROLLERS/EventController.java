@@ -1,6 +1,7 @@
 package com.example.parcial.CONTROLLERS;
 
 import com.example.parcial.DTO.EventDTO;
+import com.example.parcial.DTO.EventEditDTO;
 import com.example.parcial.MODELENTITY.Event;
 import com.example.parcial.SERVICES.INTERFACES.IEventService;
 import jakarta.validation.Valid;
@@ -62,26 +63,29 @@ public class EventController {
             Event event = eventService.createEvent(eventDTO);
 
             // Create Media
-            eventService.addMedia(eventDTO.getMedia(), event);
+            eventService.addMedia(event, eventDTO.getMedia());
 
             return ResponseEntity.status(201).body(event);
+        } catch (IllegalArgumentException error){
+            return ResponseEntity.status(400).body(error.getMessage());
         } catch (Exception e){
             return ResponseEntity.status(500).body(e.getMessage());
         }
     }
 
     @PutMapping("/event/{id}")
-    public ResponseEntity<?> putEvent (@RequestBody Event event, @PathVariable Long id) {
+    public ResponseEntity<?> putEvent (@RequestBody EventEditDTO eventEditDTO, @PathVariable Long id) {
         System.out.println("putEvent");
 
         try{
-            Event e = eventService.findById(id);
+            // TODO: rol validation
 
-            if( e==null ) return ResponseEntity.status(404).body("EventMedia not found");
+            // Edit EventMedia
+            Event event = eventService.editEvent(eventEditDTO, id);
 
-            // Modificar e
-            eventService.save(e);
-            return ResponseEntity.status(201).body(e);
+            return ResponseEntity.status(201).body(event);
+        } catch (IllegalArgumentException error){
+            return ResponseEntity.status(400).body(error.getMessage());
         } catch (Exception error){
             return ResponseEntity.status(500).body(error.getMessage());
         }
