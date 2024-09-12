@@ -11,4 +11,9 @@ public class UserRoles {
     public static List<String> getAllRoles() {
         return List.of(ADMIN, USER, ATTENDEE, ORGANIZER);
     }
+
+    public static boolean validarRol(List<String> validRoles, String rol) {
+        return validRoles.contains(rol);
+    }
 }
+
